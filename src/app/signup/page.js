@@ -1,19 +1,23 @@
 "use client";
 import React, { useState } from "react";
 import { Navbar } from "@/app/nav/page";
+import { useAuth } from "../../../contexts/auth-context";
 
 const SignUp = () => {
-  const [name, setName] = useState("");
+  const [username, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const { user, logout } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Basic validation
-    if (!name || !email || !password || !confirmPassword) {
+    if (!username || !email || !password || !confirmPassword) {
       setError("All fields are required.");
       return;
     }
@@ -23,16 +27,41 @@ const SignUp = () => {
       return;
     }
 
-    setError(""); // Clear errors
-    console.log("Signing up with:", { name, email, password });
+    setError(""); // Clear previous errors
+    setLoading(true); // Show loading state
 
-    // Here, you could send the data to an API for registration
+    try {
+      const response = await fetch("http://localhost:3001/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong.");
+      }
+
+      setSuccess("Sign-up successful! Redirecting...");
+      setTimeout(() => {
+        window.location.href = "/login"; // Redirect to dashboard or login page
+      }, 2000);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false); // Hide loading state
+    }
   };
 
   return (
-    <div className="bg-white-100 min-h-screen flex flex-col">
+    <div className="bg-white min-h-screen flex flex-col">
       {/* Navbar */}
-      <Navbar />
+      <Navbar user={user} onLogout={logout} />
 
       {/* Sign Up Section */}
       <div className="flex flex-grow items-center justify-center">
@@ -42,6 +71,7 @@ const SignUp = () => {
           </h2>
 
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+          {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
 
           <form onSubmit={handleSubmit}>
             {/* Name Field */}
@@ -53,7 +83,9 @@ const SignUp = () => {
                 type="text"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 placeholder="Enter your name"
-                value={name}
+                value={username}
+                name="username"
+                id="username"
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
@@ -104,8 +136,9 @@ const SignUp = () => {
             <button
               type="submit"
               className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300"
+              disabled={loading}
             >
-              Sign Up
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
           </form>
 
