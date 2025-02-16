@@ -31,15 +31,18 @@ const SignUp = () => {
     setLoading(true); // Show loading state
 
     try {
-      const response = await fetch("http://localhost:3001/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
+      const response = await fetch(
+        "https://supa-threads-backend.onrender.com/api/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
 
-        body: JSON.stringify({ username, email, password }),
-      });
+          body: JSON.stringify({ username, email, password }),
+        }
+      );
 
       const data = await response.json();
 

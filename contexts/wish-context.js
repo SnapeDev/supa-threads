@@ -12,19 +12,6 @@ export const WishlistProvider = ({ children }) => {
     setWishlist(storedWishlist);
   }, []);
 
-  // const addToWishlist = (item) => {
-  //   console.log(item);
-  //   console.log("now using context");
-  //   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-  //   if (!wishlist.some((w) => w._id === item._id)) {
-  //     wishlist.push(item);
-  //     localStorage.setItem("wishlist", JSON.stringify(wishlist));
-
-  //     // Dispatch a custom event to notify listeners
-  //     window.dispatchEvent(new Event("wishlistUpdated"));
-  //   }
-  // };
   const addToWishlist = (item) => {
     console.log(item);
     console.log("now using context");

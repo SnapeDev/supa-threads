@@ -20,7 +20,7 @@ export default function ProductDetailPage() {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/products/${id}`
+          `https://supa-threads-backend.onrender.com/api/products/${id}`
         );
         if (!response.ok) throw new Error("Product not found");
         const data = await response.json();

@@ -23,12 +23,15 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:3001/api/login", {
-        method: "POST",
-        credentials: "include", // Ensures cookies are sent/received
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await fetch(
+        "https://supa-threads-backend.onrender.com/api/login",
+        {
+          method: "POST",
+          credentials: "include", // Ensures cookies are sent/received
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Login failed");

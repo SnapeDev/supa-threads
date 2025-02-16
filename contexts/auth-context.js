@@ -8,9 +8,12 @@ export const AuthProvider = ({ children }) => {
 
   const checkUser = async () => {
     try {
-      const res = await fetch("http://localhost:3001/api/me", {
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://supa-threads-backend.onrender.com/api/me",
+        {
+          credentials: "include",
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);

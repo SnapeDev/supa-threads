@@ -42,7 +42,7 @@ export default function ProductListingPage() {
         }).toString();
 
         const response = await fetch(
-          `http://localhost:3001/api/products?${queryParams}`,
+          `https://supa-threads-backend.onrender.com/api/products?${queryParams}`,
           {
             method: "GET",
             credentials: "include",

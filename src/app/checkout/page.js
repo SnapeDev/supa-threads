@@ -33,7 +33,7 @@ const PaymentForm = ({ shippingInfo, totalPrice, onSuccess, onError }) => {
 
     try {
       const response = await fetch(
-        "http://localhost:3001/api/create-payment-intent",
+        "https://supa-threads-backend.onrender.com/api/create-payment-intent",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

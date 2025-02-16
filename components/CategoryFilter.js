@@ -8,7 +8,9 @@ export default function CategoryFilter({ filters, setFilters }) {
   useEffect(() => {
     const fetchColors = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/products"); // Your API endpoint
+        const response = await fetch(
+          "https://supa-threads-backend.onrender.com/api/products"
+        ); // Your API endpoint
         const data = await response.json();
         setColorOptions(data.colors || []); // Ensure 'colors' is an array, fallback to empty array if undefined
         setLoading(false);
