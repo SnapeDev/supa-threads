@@ -1,8 +1,9 @@
 "use client";
 import "./globals.css";
 import { AuthProvider } from "../../contexts/auth-context";
-import { CartProvider } from "../../contexts/cart-context"; // Import CartProvider
-import { WishlistProvider } from "../../contexts/wish-context"; // Import WishlistProvider
+import { CartProvider } from "../../contexts/cart-context";
+import { WishlistProvider } from "../../contexts/wish-context";
+import { Suspense } from "react";
 
 export default function RootLayout({ children }) {
   return (
@@ -11,9 +12,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <CartProvider>
             <WishlistProvider>
-              {" "}
-              {/* Wrap your children with WishlistProvider here */}
-              {children}
+              <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
             </WishlistProvider>
           </CartProvider>
         </AuthProvider>
