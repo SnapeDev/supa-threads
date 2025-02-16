@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await fetch("http://localhost:3001/api/logout", {
+    await fetch("https://supa-threads-backend.onrender.com/api/logout", {
       method: "POST",
       credentials: "include",
     });
