@@ -160,7 +160,7 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <Navbar />
-      <h1 className="text-3xl font-bold mb-8 mt-10 text-center">Checkout</h1>
+      <h1 className="text-3xl font-bold mb-8 mt-10text-center">Checkout</h1>
 
       {/* Shipping Information */}
       <div className="mb-8 max-w-2xl mx-auto">

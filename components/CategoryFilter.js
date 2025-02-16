@@ -34,7 +34,7 @@ export default function CategoryFilter({ filters, setFilters }) {
   );
 
   return (
-    <div className="w-full p-3 bg-gray-50 rounded-lg">
+    <div className="w-full p-3  bg-gray-50 rounded-lg">
       <h2 className="text-sm font-semibold mb-2">Filters</h2>
 
       {/* Filter Fields in a Row */}
@@ -107,7 +107,7 @@ export default function CategoryFilter({ filters, setFilters }) {
       </div>
 
       {/* Reset Button Below Filters */}
-      <div className="mt-4">
+      <div className="mt-4 ">
         <button
           onClick={() =>
             setFilters({
