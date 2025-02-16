@@ -11,17 +11,17 @@ import {
 import Link from "next/link";
 import { useAuth } from "@contexts/auth-context";
 import { useCart } from "@contexts/cart-context";
-import emailjs from "emailjs-com"; // Import EmailJS for sending messages
+import emailjs from "emailjs-com";
 
 export const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu toggle
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const { cart } = useCart();
   const { user, logout, checkUser } = useAuth();
-  const [isChatOpen, setIsChatOpen] = useState(false); // State for chat widget
-  const [message, setMessage] = useState(""); // State for chat message
-  const [email, setEmail] = useState(""); // State for user email
-  const [name, setName] = useState(""); // State for user name
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [wishlistCount, setWishlistCount] = useState(0);
 
   useEffect(() => {
@@ -31,10 +31,7 @@ export const Navbar = () => {
       setWishlistCount(storedFavorites.length);
     };
 
-    // Run initially
     updateWishlistCount();
-
-    // Listen for custom event
     window.addEventListener("wishlistUpdated", updateWishlistCount);
 
     return () => {
@@ -42,16 +39,12 @@ export const Navbar = () => {
     };
   }, []);
 
-  // check that authentication persists after page reload
   useEffect(() => {
     checkUser();
   }, []);
 
-  // Function to handle sending messages via EmailJS
   const handleSendMessage = async (e) => {
     e.preventDefault();
-
-    // Replace with your EmailJS service ID, template ID, and public key
     const serviceID = "service_4rhx73s";
     const templateID = "template_8gah933";
     const publicKey = "7Fy3F8fWPCK2d3_6o";
@@ -61,14 +54,13 @@ export const Navbar = () => {
         serviceID,
         templateID,
         {
-          to_email: "jacksnape89@gmail.com", // Your email address
-          user_email: email, // User's email
-          user_name: name, // User's name
-          message: message, // User's message
+          to_email: "jacksnape89@gmail.com",
+          user_email: email,
+          user_name: name,
+          message: message,
         },
         publicKey
       );
-
       alert("Message sent successfully!");
       setMessage("");
       setEmail("");
@@ -87,7 +79,7 @@ export const Navbar = () => {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <button
-                onClick={() => setIsMenuOpenLocal(!isMenuOpen)}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="p-2 rounded-md text-gray-400 lg:hidden"
               >
                 <Menu className="h-6 w-6" />
@@ -129,12 +121,12 @@ export const Navbar = () => {
               </Link>
             </div>
 
-            <div className="flex items-center space-x-4">
+            {/* Desktop Icons */}
+            <div className="hidden lg:flex items-center space-x-4">
               <button className="p-2 text-gray-400 hover:text-gray-500">
                 <Search className="h-6 w-6" />
               </button>
 
-              {/* Wishlist Heart Icon */}
               <div className="relative">
                 <Link href="/wishlist">
                   <button className="p-2 text-gray-400 hover:text-gray-500 relative">
@@ -177,7 +169,6 @@ export const Navbar = () => {
                         onClick={() => {
                           logout();
                           setIsUserDropdownOpen(false);
-                          setIsMenuOpen(false);
                         }}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                       >
@@ -201,7 +192,6 @@ export const Navbar = () => {
                 </Link>
               </div>
 
-              {/* Chat Bubble */}
               <button
                 onClick={() => setIsChatOpen(!isChatOpen)}
                 className="p-2 text-gray-400 hover:text-gray-500"
@@ -223,6 +213,148 @@ export const Navbar = () => {
               </button>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="lg:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <Link
+                  href="/products?category=women"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Women
+                </Link>
+                <Link
+                  href="/products?category=men"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Men
+                </Link>
+                <Link
+                  href="/products?category=accessories"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Accessories
+                </Link>
+                <Link
+                  href="/products"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Sale
+                </Link>
+              </div>
+
+              {/* Mobile Icons */}
+              <div className="pt-4 pb-3 border-t border-gray-200">
+                <div className="flex items-center px-5 space-x-4">
+                  <button className="p-2 text-gray-400 hover:text-gray-500">
+                    <Search className="h-6 w-6" />
+                  </button>
+
+                  <div className="relative">
+                    <Link href="/wishlist">
+                      <button
+                        className="p-2 text-gray-400 hover:text-gray-500 relative"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <Heart className="h-5.2 w-5.2" />
+                        {wishlistCount > 0 && (
+                          <span className="absolute -top-1 -right-1 bg-gray-300 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
+                            {wishlistCount}
+                          </span>
+                        )}
+                      </button>
+                    </Link>
+                  </div>
+
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+                      className="p-2 text-gray-400 hover:text-gray-500"
+                    >
+                      <User className="h-6 w-6" />
+                    </button>
+                    {isUserDropdownOpen && (
+                      <div className="absolute left-0 mt-2 w-[90px] bg-white border border-gray-200 rounded-md shadow-lg">
+                        {!user ? (
+                          <>
+                            <a
+                              href="/login"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              Login
+                            </a>
+                            <a
+                              href="/signup"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              Sign Up
+                            </a>
+                          </>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              logout();
+                              setIsUserDropdownOpen(false);
+                              setIsMenuOpen(false);
+                            }}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                          >
+                            Logout
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="relative">
+                    <Link href="/basket">
+                      <button
+                        className="p-2 text-gray-400 hover:text-gray-500 relative"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <ShoppingCart className="h-6 w-6" />
+                        {cart.length > 0 && (
+                          <span className="absolute -top-1 -right-1 bg-gray-300 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
+                            {cart.length}
+                          </span>
+                        )}
+                      </button>
+                    </Link>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setIsChatOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                    className="p-2 text-gray-400 hover:text-gray-500"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
