@@ -42,6 +42,7 @@ export default function ProductCard({ product }) {
                 quality={100}
                 className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                 unoptimized
+                priority={true}
               />
             ) : (
               <div className="w-full h-full bg-gray-100 flex items-center justify-center">
