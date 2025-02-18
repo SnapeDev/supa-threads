@@ -41,7 +41,6 @@ export default function ProductCard({ product }) {
                 height={256}
                 quality={100}
                 className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                unoptimized
                 priority={true}
               />
             ) : (
