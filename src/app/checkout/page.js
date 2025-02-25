@@ -58,6 +58,7 @@ const PaymentForm = ({ shippingInfo, totalPrice, onSuccess, onError }) => {
         {
           payment_method: {
             card: elements.getElement(CardElement),
+            receipt_email: shippingInfo.email,
             billing_details: {
               name: shippingInfo.name,
               address: {
