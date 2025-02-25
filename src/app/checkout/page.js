@@ -120,6 +120,7 @@ export default function CheckoutPage() {
 
   const [shippingInfo, setShippingInfo] = useState({
     name: "",
+    email: "", // Add email to shipping info state
     address: "",
     city: "",
     postalCode: "",
@@ -160,7 +161,7 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <Navbar />
-      <h1 className="text-3xl font-bold mb-8 mt-10text-center">Checkout</h1>
+      <h1 className="text-3xl font-bold mb-8 mt-10 text-center">Checkout</h1>
 
       {/* Shipping Information */}
       <div className="mb-8 max-w-2xl mx-auto">
@@ -168,18 +169,32 @@ export default function CheckoutPage() {
           Shipping Information
         </h2>
         <form className="grid grid-cols-1 gap-4">
-          {Object.keys(shippingInfo).map((field) => (
-            <input
-              key={field}
-              type="text"
-              name={field}
-              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-              value={shippingInfo[field]}
-              onChange={handleInputChange}
-              className="p-2 border rounded-md"
-              required
-            />
-          ))}
+          {Object.keys(shippingInfo).map((field) =>
+            field !== "email" ? (
+              <input
+                key={field}
+                type="text"
+                name={field}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                value={shippingInfo[field]}
+                onChange={handleInputChange}
+                className="p-2 border rounded-md"
+                required
+              />
+            ) : (
+              // Add email input field
+              <input
+                key={field}
+                type="email"
+                name={field}
+                placeholder="Email Address"
+                value={shippingInfo[field]}
+                onChange={handleInputChange}
+                className="p-2 border rounded-md"
+                required
+              />
+            )
+          )}
         </form>
       </div>
 
