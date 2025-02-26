@@ -69,6 +69,7 @@ const PaymentForm = ({ shippingInfo, totalPrice, onSuccess, onError }) => {
             },
           },
           receipt_email: shippingInfo.email,
+          return_url: "https://supa-threads.vercel.app/checkout/success",
         }
       );
 
