@@ -43,30 +43,9 @@ const Login = () => {
     }
   };
 
-  // const fizzBuzz = (num) => {
-  //   for (let i = 1; i <= num; i++) {
-  //     if (i % 15 === 0) {
-  //       console.log("FizzBuzz");
-  //     } else if (i % 3 === 0) {
-  //       console.log("Fizz");
-  //     } else if (i % 5 === 0) {
-  //       console.log("Buzz");
-  //     } else {
-  //       console.log(i);
-  //     }
-  //   }
-  // };
-  // fizzBuzz(100);
-
   return (
     <div className="bg-white-100 min-h-screen flex flex-col">
-      <Navbar
-        user={user}
-        onLogout={() => {
-          logout;
-        }}
-      />{" "}
-      {/* Pass the user directly from context */}
+      <Navbar user={user} /> {/* Pass the user directly from context */}
       {/* Login Form (Hidden if logged in) */}
       {!user ? (
         <div className="flex flex-grow items-center justify-center">
