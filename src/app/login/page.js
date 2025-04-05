@@ -21,23 +21,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
+  
     try {
       const res = await fetch(
         "https://supa-threads-backend.onrender.com/api/login",
         {
           method: "POST",
-          credentials: "include", // Ensures cookies are sent/received
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
         }
       );
-
+  
       const data = await res.json();
+      console.log("Login response:", data); // Debug the response
       if (!res.ok) throw new Error(data.message || "Login failed");
-
-      login(data.user); // Use the login function from context to update the global user state
-      router.push("/"); // Redirect to home after successful login
+  
+      login(data.user); // Update context
+      router.push("/");
     } catch (err) {
       setError(err.message);
     }
