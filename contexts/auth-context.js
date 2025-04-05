@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const checkUser = async () => {
     try {
       const res = await fetch(
-        "https://supa-threads-backend.onrender.com/api/me",
+        "https://supa-threads-backend.onrender.com/api/login",
         {
           credentials: "include",
         }
