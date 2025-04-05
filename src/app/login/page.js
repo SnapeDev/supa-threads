@@ -46,8 +46,7 @@ const Login = () => {
 
   return (
     <div className="bg-white-100 min-h-screen flex flex-col">
-      <Navbar user={user} /> {/* Pass the user directly from context */}
-      {/* Login Form (Hidden if logged in) */}
+      <Navbar />
       {!user ? (
         <div className="flex flex-grow items-center justify-center">
           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
