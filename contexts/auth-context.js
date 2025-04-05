@@ -26,9 +26,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   checkUser();
-  // }, []);
+  useEffect(() => {
+     checkUser();
+   }, []);
 
   const login = (userData) => {
     setUser(userData);
