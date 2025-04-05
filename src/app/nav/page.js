@@ -40,8 +40,10 @@ export const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    checkUser();
-  }, []);
+    if (!user) {
+      checkUser(); // Only run if no user is set
+    }
+  }, [user, checkUser]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
